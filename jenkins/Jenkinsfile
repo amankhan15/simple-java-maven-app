@@ -3,7 +3,16 @@ pipeline {
     tools {
         maven 'Maven 3.9.9'
     }
+    environment {
+        MAVEN_HOME = '/path/to/maven/3.9.9'
+        PATH = "${MAVEN_HOME}/bin:${env.PATH}"
+    }
     stages {
+        stage('Check Maven Version') {
+            steps {
+                sh 'mvn -v'
+            }
+        }
         stage('Build') {
             steps {
                 sh 'mvn -B -DskipTests clean package'
